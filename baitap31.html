@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập 31 - Kiểm tra HTML - JavaScript 05</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f7f6;
+        }
+        .container {
+            max-width: 450px;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #2c3e50;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #219653;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #e74c3c;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Bài tập 31: Tính tích các số chia hết cho 7</h2>
+
+        <!-- Form nhập liệu theo cấu trúc gợi ý -->
+        <form onsubmit="handleSubmit(event)">
+            <div class="form-group">
+                <label for="numStart">Số đầu:</label>
+                <input type="number" id="numStart" required placeholder="Nhập số bắt đầu">
+            </div>
+            
+            <div class="form-group">
+                <label for="numEnd">Số cuối:</label>
+                <input type="number" id="numEnd" required placeholder="Nhập số kết thúc">
+            </div>
+
+            <button type="submit">Tính Tích</button>
+        </form>
+
+        <div class="result" id="ketQua">Kết quả: </div>
+    </div>
+
+    <script>
+        // Hàm xử lý sự kiện submit form theo đúng gợi ý đề bài
+        function handleSubmit(event) {
+            // Ngăn chặn trình duyệt load lại trang khi bấm submit
+            event.preventDefault();
+
+            // Lấy giá trị số đầu và số cuối từ các ô input
+            let start = parseInt(document.getElementById("numStart").value);
+            let end = parseInt(document.getElementById("numEnd").value);
+            let resultDiv = document.getElementById("ketQua");
+
+            // Đảm bảo khoảng từ số đầu đến số cuối được sắp xếp đúng thứ tự (nếu người dùng nhập số đầu > số cuối thì đổi chỗ)
+            if (start > end) {
+                let temp = start;
+                start = end;
+                end = temp;
+            }
+
+            let tich = 1;
+            let count = 0; // Đếm xem có bao nhiêu số chia hết cho 7 trong khoảng
+
+            // Vòng lặp duyệt qua các số từ start đến end
+            for (let i = start; i <= end; i++) {
+                if (i !== 0 && i % 7 === 0) {
+                    tich *= i;
+                    count++;
+                }
+            }
+
+            // In kết quả ra console (theo mẫu gợi ý) và hiển thị trực quan lên giao diện
+            if (count > 0) {
+                console.log("Tích các số chia hết cho 7 là: " + tich);[cite: 17]
+                resultDiv.innerText = "Kết quả: Tích các số chia hết cho 7 từ " + start + " đến " + end + " là " + tich;
+            } else {
+                console.log("Không có số nào chia hết cho 7 trong khoảng này.");[cite: 17]
+                resultDiv.innerText = "Kết quả: Không có số nào chia hết cho 7 trong khoảng từ " + start + " đến " + end;
+            }
+        }
+    </script>
+
+</body>
+</html>
